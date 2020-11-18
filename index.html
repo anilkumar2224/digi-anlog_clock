@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <link rel="stylesheet" href="\sty.css" type="text/css">
+    <style>
+      @font-face {
+          font-family: 'digital-clock-font';
+          src: url('digital-7.regular.ttf');
+      }
+      body{
+        margin: 0;
+        padding: 0;
+        display: flex;
+     
+      justify-content: center;
+    
+       align-items: center;
+      }
+    
+   .div{
+       width: 400px;
+       height: 400px;
+      position: absolute; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #060c21;
+      border-radius: 20px;
+     padding-top: -5px;
+     }
+     #canvas1{
+    width: 180px;
+    height: 150px;
+      position: absolute; 
+     align-self:flex-start;
+   padding-left: 70px;
+ 
+   
+    
+      
+      
+     }
+     @media (max-width: 430px) {
+      
+    .div{
+        width: 350px;
+        height: 400px;
+        position: absolute; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+   
+  }
+    
+    
+     
+     
+    
+    </style>
+
+    <script>
+        function digital_clock(){
+            var ctx = document.getElementById('canvas').getContext('2d');
+            
+            ctx.save();
+            ctx.clearRect(0, 0, 400, 400);
+           
+            var date= new Date();
+            var wday=new Array(7);
+            wday[0]="Sun";
+            wday[1]="Mon";
+            wday[2]="Tue";
+            wday[3]="Wed";
+            wday[4]="Thu";
+            wday[5]="Fri";
+            wday[6]="Sat";
+            var day=wday[date.getDay()];
+            var d=date.getDate();
+            var mon=date.getMonth();
+            var year=date.getFullYear();
+            var hr=date.getHours();
+            var min=date.getMinutes();
+            var sec=date.getSeconds();
+            hr= hr > 12 ? hr-12 : hr;
+            hr=hr<10 ?'0'+hr :hr;
+            min=min<10?'0'+min:min;
+            sec=sec<10?'0'+sec:sec;
+
+            //date
+            ctx.font = '25px digital-clock-font ';
+            if(hr==min && min==sec){
+                ctx.fillStyle = 'rgb(' + Math.floor(255 - 42.5 * 5) + ', ' +
+                       Math.floor(255 - 42.5 * 0) + ', 0)';
+             }
+             else{
+                ctx.fillStyle = 'rgb(0, ' + Math.floor(255 - 42.5 * 1) + ', ' + 
+                         Math.floor(255 - 42.5 * 0) + ')';
+             }
+             ctx.fillText(day+', '+d+' / '+mon+' / '+year, 40, 50); 
+
+             //time
+            ctx.font = '72px digital-clock-font';
+              if(hr==min && min==sec){
+                ctx.fillStyle = 'rgb(' + Math.floor(255 - 42.5 * 5) + ', ' +
+                       Math.floor(255 - 42.5 * 0) + ', 0)';
+             }
+             else{
+                ctx.fillStyle = 'rgb(0, ' + Math.floor(255 - 42.5 * 0) + ', ' + 
+                         Math.floor(255 - 42.5 * 0) + ')';
+             }
+            ctx.fillText(hr+':'+min, 40, 110);
+            var show=date.getMilliseconds();
+            
+                ctx.font = '27px digital-clock-font';
+               
+             if(hr==min && min==sec){
+               ctx.fillStyle = 'rgb(' + Math.floor(255 - 42.5 * 5) + ', ' +
+                       Math.floor(255 - 42.5 * 0) + ', 0)';
+             }
+             else{
+                ctx.fillStyle = 'rgb(' + Math.floor(255 - 42.5 * 4) + ', ' +
+                       Math.floor(255 - 42.5 * 1) + ', 0)';
+             }
+                ctx.fillText(' : '+sec, 200, 110);  
+           
+           
+
+          
+             ctx.restore();
+
+         
+             window.requestAnimationFrame(digital_clock);
+        }
+        window.requestAnimationFrame(digital_clock);
+    </script>
+</head>
+<body onload="draw()" >
+
+  <canvas id="canvas1">
+    
+  </canvas>
+ 
+    <canvas id="canvas" class="div" >
+   
+    </canvas>
+    <div class="area" >
+      <ul class="circles">
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+      </ul>
+</div >
+  
+    <script src="partical.js"></script>
+
+
+    
+</body>
+</html>
