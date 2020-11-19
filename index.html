@@ -20,7 +20,7 @@
        align-items: center;
       }
     
-   .div{
+   .div2{
        width: 400px;
        height: 400px;
       position: absolute; 
@@ -30,29 +30,62 @@
       background: #060c21;
       border-radius: 20px;
      padding-top: -5px;
+     left: 20%;
+     
      }
-     #canvas1{
-    width: 180px;
-    height: 150px;
+     .div1{
+      width: 180px;
+       height: 150px;
       position: absolute; 
-     align-self:flex-start;
-   padding-left: 70px;
- 
-   
-    
-      
+    align-self: flex-start;
+  padding-left: 70px;
       
      }
-     @media (max-width: 430px) {
-      
-    .div{
-        width: 350px;
-        height: 400px;
+     .div3{
+      width: 400px;
+       height: 400px;
+      position: absolute; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #060c21;
+      border-radius: 20px;
+     padding-top: -5px;
+     right: 20%;
+     }
+   
+     @media (max-width: 1300px) {
+      .area, .circles{
+        padding-bottom: 115%;
+      }
+    .div2{
+        width: 300px;
+        height: 350px;
         position: absolute; 
+        left: 10%;
+        top: 25%;
       display: flex;
       justify-content: center;
       align-items: center;
     }
+    .div3{
+        width: 300px;
+        height: 350px;
+        position: absolute; 
+      display:flex;
+      top: 95%;
+      left: 10%;
+      justify-content: center;
+      align-items: center;
+    }
+    .clock{
+      top: 98%;
+      margin-left: 0px;
+      left:13.5%;
+      
+      
+    }
+    
    
   }
     
@@ -64,7 +97,7 @@
 
     <script>
         function digital_clock(){
-            var ctx = document.getElementById('canvas').getContext('2d');
+            var ctx = document.getElementById('canvas2').getContext('2d');
             
             ctx.save();
             ctx.clearRect(0, 0, 400, 400);
@@ -86,6 +119,13 @@
             var hr=date.getHours();
             var min=date.getMinutes();
             var sec=date.getSeconds();
+            if(hr<12){
+            var noon='AM';
+            }
+            else{
+              var noon='PM';
+            }
+          
             hr= hr > 12 ? hr-12 : hr;
             hr=hr<10 ?'0'+hr :hr;
             min=min<10?'0'+min:min;
@@ -98,10 +138,11 @@
                        Math.floor(255 - 42.5 * 0) + ', 0)';
              }
              else{
-                ctx.fillStyle = 'rgb(0, ' + Math.floor(255 - 42.5 * 1) + ', ' + 
+               ctx.fillStyle = 'rgb(0, ' + Math.floor(255 - 42.5 * 1) + ', ' + 
                          Math.floor(255 - 42.5 * 0) + ')';
+                         //ctx.fillStyle='#e6e6e6';
              }
-             ctx.fillText(day+', '+d+' / '+mon+' / '+year, 40, 50); 
+             ctx.fillText(day+', '+d+' / '+mon+' / '+year, 50, 50); 
 
              //time
             ctx.font = '72px digital-clock-font';
@@ -113,7 +154,14 @@
                 ctx.fillStyle = 'rgb(0, ' + Math.floor(255 - 42.5 * 0) + ', ' + 
                          Math.floor(255 - 42.5 * 0) + ')';
              }
-            ctx.fillText(hr+':'+min, 40, 110);
+             if(hr<10 ){
+               ctx.fillText(hr+':'+min,50,110)
+             }
+             else{
+              ctx.fillText(hr, 50, 110);
+            ctx.fillText(':'+min, 105, 110);
+             }
+            
             var show=date.getMilliseconds();
             
                 ctx.font = '27px digital-clock-font';
@@ -123,14 +171,31 @@
                        Math.floor(255 - 42.5 * 0) + ', 0)';
              }
              else{
-                ctx.fillStyle = 'rgb(' + Math.floor(255 - 42.5 * 4) + ', ' +
-                       Math.floor(255 - 42.5 * 1) + ', 0)';
+              /*  ctx.fillStyle = 'rgb(' + Math.floor(255 - 42.5 * 4) + ', ' +
+                       Math.floor(255 - 42.5 * 1) + ', 0)';*/
+                       ctx.fillStyle = 'rgb(0, ' + Math.floor(255 - 42.5 * 0) + ', ' + 
+                         Math.floor(255 - 42.5 * 0) + ')';
              }
-                ctx.fillText(' : '+sec, 200, 110);  
-           
-           
+                ctx.fillText(' : '+sec, 200, 110); 
 
-          
+             if(hr==min && min==sec){
+               ctx.fillStyle = 'rgb(' + Math.floor(255 - 42.5 * 5) + ', ' +
+                       Math.floor(255 - 42.5 * 0) + ', 0)';
+             }
+             else{
+              ctx.fillStyle = 'rgb(0, ' + Math.floor(255 - 42.5 * 1) + ', ' + 
+                         Math.floor(255 - 42.5 * 0) + ')';
+                        // ctx.fillStyle='#e6e6e6';
+             }
+              
+                ctx.fillText(' '+noon, 250, 110);  
+           
+                ctx.font = '17px Georgia, serif';
+                ctx.fillStyle = 'rgb(0, ' + Math.floor(255 - 42.5 * 1) + ', ' + 
+                         Math.floor(255 - 42.5 * 5) + ')';
+                ctx.fillText(' Digital-Clock', 90, 143);  
+                 
+                 
              ctx.restore();
 
          
@@ -141,13 +206,24 @@
 </head>
 <body onload="draw()" >
 
-  <canvas id="canvas1">
+  <canvas id="canvas1" class="div1">
     
   </canvas>
  
-    <canvas id="canvas" class="div" >
-   
+    <canvas id="canvas2" class="div2" >
+      
     </canvas>
+    
+    <canvas id="canvas3" class="div3" >
+   
+
+    </canvas>
+    <div class="clock">
+      <div id="second"></div>
+      <div id="minute"></div>
+      <div id="hour"></div>
+      <span id="logo">ANIL</span>
+    </div>
     <div class="area" >
       <ul class="circles">
               <li></li>
@@ -162,6 +238,7 @@
               <li></li>
       </ul>
 </div >
+
   
     <script src="partical.js"></script>
 
